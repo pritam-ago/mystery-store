@@ -1,0 +1,47 @@
+/* src/components/styles/Profile.css */
+
+.profile-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .profile-container h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .profile-container p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  .profile-container p strong {
+    color: #333;
+  }
+  
+  .profile-container p span {
+    font-weight: 400;
+  }
+  
+  @media (max-width: 768px) {
+    .profile-container {
+      padding: 15px;
+    }
+  
+    .profile-container h2 {
+      font-size: 1.5rem;
+    }
+  
+    .profile-container p {
+      font-size: 1rem;
+    }
+  }
+  

@@ -1,0 +1,204 @@
+/* src/styles/HomePage.css */
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4; /* Light background for contrast */
+  color: #333; /* Dark text color for readability */
+}
+
+.home-container {
+  max-width: 1200px; /* Limit width for larger screens */
+  margin: 0 auto; /* Center the container */
+  padding: 20px; /* Padding around the content */
+}
+
+.header {
+  display: flex; /* Flexbox for header layout */
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Space out logo and navigation */
+  padding: 20px; /* Padding around header */
+  background-color: #ffffff; /* White background for header */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.logo {
+  height: 50px; /* Fixed height for the logo */
+}
+
+.title {
+  font-size: 2.5em; /* Larger font size for title */
+  margin: 0; /* Remove default margin */
+  color: #007bff; /* Primary color for title */
+}
+
+.search-bar-container {
+  display: flex; /* Flex container for search bar */
+}
+
+.search-input {
+  padding: 10px; /* Padding for input */
+  border: 1px solid #ced4da; /* Light gray border */
+  border-radius: 5px; /* Rounded corners */
+  width: 250px; /* Fixed width */
+  transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+.search-input:focus {
+  border-color: #007bff; /* Change border color on focus */
+  outline: none; /* Remove outline */
+}
+
+.search-icon {
+  background-color: #007bff; /* Primary button color */
+  color: white; /* White text */
+  border: none; /* No border */
+  padding: 10px 15px; /* Padding for button */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  margin-left: 5px; /* Space between input and button */
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.search-icon:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.navigation {
+  display: flex; /* Flex container for navigation links */
+}
+
+.nav-link {
+  color: #007bff; /* Primary color for links */
+  text-decoration: none; /* Remove underline */
+  margin-left: 20px; /* Space between links */
+  font-weight: bold; /* Bold text */
+  transition: color 0.3s; /* Smooth transition for hover */
+}
+
+.nav-link:hover {
+  color: #0056b3; /* Darker color on hover */
+}
+
+.category-section {
+  margin: 20px 0; /* Margin around category section */
+  text-align: center; /* Center text */
+}
+
+.categories {
+  display: flex; /* Flex container for category buttons */
+  justify-content: center; /* Center buttons */
+  margin-top: 10px; /* Space above buttons */
+}
+
+.category {
+  background-color: #007bff; /* Primary button color */
+  color: white; /* White text */
+  padding: 10px 20px; /* Padding for category buttons */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  margin: 0 10px; /* Space between buttons */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover */
+}
+
+.category:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+/* src/styles/HomePage.css (continued) */
+
+.product-list {
+  display: flex; /* Use flexbox for a clean layout */
+  flex-wrap: wrap; /* Allow wrapping to next line */
+  justify-content: space-between; /* Space out items evenly */
+  margin: 20px 0; /* Margin around product list */
+  padding: 20px; /* Padding around the product list */
+}
+
+.product-card {
+  background: #ffffff; /* White background for product cards */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  padding: 15px; /* Padding for product cards */
+  text-align: center; /* Center text inside cards */
+  transition: box-shadow 0.2s ease; /* Smooth transition for hover effects */
+  width: calc(33% - 20px); /* Responsive card width */
+  margin-bottom: 20px; /* Space below cards */
+  display: flex; /* Use flexbox for content alignment */
+  flex-direction: column; /* Stack items vertically */
+  justify-content: space-between; /* Space out content evenly */
+  height: 350px; /* Fixed height for uniformity */
+}
+
+.product-card img {
+  max-width: 100%; /* Responsive image */
+  height: 150px; /* Fixed height for images */
+  object-fit: cover; /* Cover image to maintain aspect ratio */
+  border-radius: 5px; /* Rounded corners for images */
+}
+
+.product-card h3 {
+  font-size: 1.1em; /* Standard font size for product name */
+  margin: 10px 0; /* Margin around product name */
+  color: #333; /* Darker text color */
+  flex-grow: 1; /* Allow name to grow and fill space */
+}
+
+.product-card p {
+  font-size: 0.9em; /* Smaller font size for description */
+  color: #555; /* Darker gray for description */
+  margin: 5px 0; /* Space above and below description */
+}
+
+.product-card span {
+  font-size: 1.2em; /* Larger font for price */
+  font-weight: bold; /* Bold price for emphasis */
+  color: #007bff; /* Primary color for price */
+}
+
+.product-card button {
+  background-color: #007bff; /* Primary button color */
+  color: white; /* White text */
+  border: none; /* No border */
+  padding: 10px 15px; /* Padding for add to cart button */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  margin-top: 10px; /* Space above button */
+  transition: background-color 0.2s; /* Smooth transition for hover */
+}
+
+.product-card button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+
+
+.pagination {
+  display: flex; /* Flex container for pagination */
+  justify-content: center; /* Center pagination controls */
+  margin: 20px 0; /* Margin around pagination */
+}
+
+.pagination button {
+  background-color: #007bff; /* Primary button color */
+  color: white; /* White text */
+  border: none; /* No border */
+  padding: 10px 15px; /* Padding for buttons */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  margin: 0 5px; /* Space between buttons */
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.pagination button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.pagination button:disabled {
+  background-color: #ccc; /* Gray background for disabled */
+  cursor: not-allowed; /* Not-allowed cursor for disabled */
+}

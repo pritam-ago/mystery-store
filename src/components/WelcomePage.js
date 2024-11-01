@@ -1,9 +1,12 @@
 // src/components/WelcomePage.js
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
-import "./WelcomePage.css";
+import "./styles/WelcomePage.css";
 
 function WelcomePage() {
+
+
+
   return (
     <div className="welcome-container">
       <h1>Welcome to Our Shop</h1>

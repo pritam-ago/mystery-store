@@ -1,42 +1,58 @@
 // src/components/Signup.js
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import "./Signup.css";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore"; // Import Firestore methods
+import { db } from "../config"; // Your Firestore config
+import "./styles/Signup.css";
 
 function Signup() {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [address, setAddress] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+    const auth = getAuth();
+
+    try {
+      // Create a new user in Firebase Auth
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Store user data in Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        name,
+        email,
+        age,
+        gender,
+        address,
+      });
+
+      // Redirect to Welcome page on successful signup
+      window.location.href = "/"; // or use your navigate function
+    } catch (err) {
+      setError(err.message);
+      console.error("Error during signup:", err);
     }
-    // Handle signup logic here
-    console.log({ name, email, age, gender, password, address });
   };
 
   return (
     <div className="signup-container">
-      <h2>Create an Account</h2>
+      <h2>Signup</h2>
+      {error && <p className="error">{error}</p>}
       <form onSubmit={handleSignup} className="signup-form">
         <label>Name</label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Enter your full name"
+          placeholder="Enter your name"
           required
         />
-
         <label>Email</label>
         <input
           type="email"
@@ -45,7 +61,15 @@ function Signup() {
           placeholder="Enter your email"
           required
         />
-
+        <label>Password</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter your password"
+          required
+          maxLength={20}
+        />
         <label>Age</label>
         <input
           type="number"
@@ -53,77 +77,23 @@ function Signup() {
           onChange={(e) => setAge(e.target.value)}
           placeholder="Enter your age"
           required
-          min="15"
         />
-
         <label>Gender</label>
-        <div className="gender-container">
-          <label>
-            <input
-              type="radio"
-              value="Male"
-              checked={gender === "Male"}
-              onChange={(e) => setGender(e.target.value)}
-              required
-            />
-            Male
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="Female"
-              checked={gender === "Female"}
-              onChange={(e) => setGender(e.target.value)}
-              required
-            />
-            Female
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="Other"
-              checked={gender === "Other"}
-              onChange={(e) => setGender(e.target.value)}
-              required
-            />
-            Other
-          </label>
-        </div>
-
-        <label>Password</label>
-        <div className="password-container">
-          <input
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter a password"
-            required
-          />
-          <FontAwesomeIcon
-            icon={showPassword ? faEyeSlash : faEye}
-            onClick={() => setShowPassword(!showPassword)}
-            className="eye-icon"
-          />
-        </div>
-
-        <label>Confirm Password</label>
-        <input
-          type={showPassword ? "text" : "password"}
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder="Confirm your password"
-          required
-        />
-
+        <select value={gender} onChange={(e) => setGender(e.target.value)} required>
+          <option value="" disabled>Select your gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
         <label>Address</label>
-        <textarea
+        <input
+          type="text"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           placeholder="Enter your address"
           required
-        ></textarea>
-
-        <button type="submit" className="signup-btn">Sign Up</button>
+        />
+        <button type="submit" className="signup-btn">Signup</button>
       </form>
     </div>
   );

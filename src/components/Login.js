@@ -3,23 +3,27 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"; // Import Firebase auth
+import "./styles/Login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   const history = useNavigate();
-  
-  const handleLogin = (e) => {
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Email:", email, "Password:", password);
-    history("/home"); // Redirect to Home page on successful login
+    const auth = getAuth();
+    
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      history("/home"); // Redirect to Home page on successful login
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("Login failed. Please check your credentials.");
+    }
   };
-
-  
-
 
   return (
     <div className="login-container">
@@ -33,7 +37,6 @@ function Login() {
           placeholder="Enter your email"
           required
         />
-
         <label>Password</label>
         <div className="password-container">
           <input
@@ -50,7 +53,6 @@ function Login() {
             className="eye-icon"
           />
         </div>
-
         <button type="submit" className="login-btn">Login</button>
       </form>
     </div>
