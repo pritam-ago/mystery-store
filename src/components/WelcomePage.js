@@ -4,12 +4,9 @@ import { Link } from "react-router-dom";
 import "./styles/WelcomePage.css";
 
 function WelcomePage() {
-
-
-
   return (
     <div className="welcome-container">
-      <h1>Welcome to Our Shop</h1>
+      <h1>Welcome to Mystery store</h1>
       <p>Your gateway to the best shopping experience!</p>
       <div className="button-container">
         <Link to="/login" className="btn login-btn">Login</Link>

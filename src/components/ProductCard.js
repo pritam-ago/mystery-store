@@ -2,68 +2,71 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./styles/ProductCard.css";
-import { AuthContext } from "../context/AuthContext"; // Import your Auth context
-import { db } from "../config"; // Adjust import as needed
+import { AuthContext } from "../context/AuthContext";
+import { db } from "../config";
 import { collection, getDoc, query, where, getDocs, updateDoc, doc, arrayUnion } from "firebase/firestore"; 
 
 const ProductCard = ({ product }) => {
   const { user } = useContext(AuthContext); // Get the current user from context
-  const price = parseFloat(product.price) || 0;
   const [itemId, setItemId] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const price = parseFloat(product.price) || 0;
 
+  // Fetch the product document ID only once
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchProductId = async () => {
       const productsRef = collection(db, "products");
       const q = query(productsRef, where("id", "==", Number(product.id)));
 
       try {
         const querySnapshot = await getDocs(q);
         if (!querySnapshot.empty) {
-          querySnapshot.forEach((doc) => {
-            setItemId({id: doc.id})
-          });
-        } 
+          const docId = querySnapshot.docs[0].id; // Set the first document's ID if found
+          setItemId(docId);
+        }
       } catch (error) {
-        console.error("Error fetching product:", error);
+        console.error("Error fetching product ID:", error);
       }
     };
 
-    fetchProduct();
-  }, []);
+    fetchProductId();
+  }, [product.id]);
 
   // Function to add product to cart
-   // Function to add product to cart
-   const addToCart = async () => {
+  const addToCart = async () => {
     if (!user) {
-      alert("You need to be logged in to add items to the cart.");
+      alert("Please log in to add items to your cart.");
       return;
     }
-  
-    const userDocRef = doc(db, "users", user.uid); // Reference to the user's document
+
+    if (!itemId) {
+      console.error("Product ID not available.");
+      return;
+    }
+
+    const userDocRef = doc(db, "users", user.uid);
+
     try {
-      // Fetch the current cart items to check if the product already exists
+      // Check current cart items to see if the product exists
       const userSnapshot = await getDoc(userDocRef);
-      const cartItems = userSnapshot.data()?.cart || []; // Use optional chaining to avoid errors if cart is undefined
-  
-      const existingProductIndex = cartItems.findIndex(item => item.id === itemId.id);
-  
-      if (existingProductIndex !== -1) {
-        // If product exists, update quantity
+      const cartItems = userSnapshot.data()?.cart || [];
+
+      const existingItemIndex = cartItems.findIndex(item => item.id === itemId);
+
+      if (existingItemIndex !== -1) {
+        // Update quantity if item exists
         const updatedCart = cartItems.map((item, index) => 
-          index === existingProductIndex 
-            ? { ...item, quantity: item.quantity + quantity } // Increase quantity
+          index === existingItemIndex 
+            ? { ...item, quantity: item.quantity + quantity } 
             : item
         );
-  
-        await updateDoc(userDocRef, {
-          cart: updatedCart // Update the cart array
-        });
-        alert(`Updated ${product.name} quantity to ${updatedCart[existingProductIndex].quantity}!`);
+
+        await updateDoc(userDocRef, { cart: updatedCart });
+        alert(`Updated quantity of ${product.name} to ${updatedCart[existingItemIndex].quantity}!`);
       } else {
-        // Add new product to the cart
+        // Add new item if it doesn't exist in the cart
         await updateDoc(userDocRef, {
-          cart: arrayUnion({ id: itemId.id, quantity: quantity }) // Add product with quantity
+          cart: arrayUnion({ id: itemId, quantity })
         });
         alert("Product added to cart!");
       }

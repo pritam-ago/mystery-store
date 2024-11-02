@@ -1,47 +1,51 @@
-/* src/components/styles/Profile.css */
+.profile-page {
+  max-width: 600px; /* Restrict the width of the profile page */
+  margin: 0 auto; /* Center the profile page */
+  padding: 20px; /* Add padding for visual spacing */
+}
 
-.profile-container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-  }
-  
-  .profile-container h2 {
-    text-align: center;
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .profile-container p {
-    margin: 10px 0;
-    font-size: 1.1rem;
-    color: #555;
-  }
-  
-  .profile-container p strong {
-    color: #333;
-  }
-  
-  .profile-container p span {
-    font-weight: 400;
-  }
-  
-  @media (max-width: 768px) {
-    .profile-container {
-      padding: 15px;
-    }
-  
-    .profile-container h2 {
-      font-size: 1.5rem;
-    }
-  
-    .profile-container p {
-      font-size: 1rem;
-    }
-  }
-  
+.profile-info {
+  margin: 20px 0; /* Space between sections */
+}
+
+.edit-profile input {
+  width: calc(100% - 40px); /* Ensure input fits within container minus padding */
+  padding: 10px;
+  margin: 10px 0; /* Margin for spacing between fields */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.password-eye-icon {
+  position: absolute;
+  right: 25px; /* Distance from the right edge of the input */
+  top: 55%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust to perfectly center */
+  cursor: pointer;
+  font-size: 20px;
+  color: #555;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center; /* Center the buttons */
+  margin-top: 10px; /* Space above the button group */
+}
+
+.button-group button {
+  margin: 0 5px; /* Space between buttons */
+  padding: 10px 20px; /* Button padding */
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff; /* Bootstrap primary color */
+  color: white; /* Text color */
+  cursor: pointer;
+}
+
+.button-group button:hover {
+  background-color: #0056b3; /* Darken on hover */
+}

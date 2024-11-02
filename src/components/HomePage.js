@@ -5,7 +5,7 @@ import { db } from "../config";
 import { collection, getDocs } from "firebase/firestore"; // Import Firestore functions
 import "./styles/HomePage.css";
 import ProductCard from "./ProductCard";
-import logo from "../assets/logo.png";
+import logo from "../assets/Mystery.png";
 import addProductsToFirestore from '../DataPush';
 
 function HomePage({userId}) {
@@ -56,7 +56,7 @@ function HomePage({userId}) {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="search-input"
             />
-            <button className="search-icon">🔍</button>
+           
           </div>
         </div>
         <div className="navigation">

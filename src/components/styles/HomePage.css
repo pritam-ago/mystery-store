@@ -50,21 +50,6 @@ body {
   outline: none; /* Remove outline */
 }
 
-.search-icon {
-  background-color: #007bff; /* Primary button color */
-  color: white; /* White text */
-  border: none; /* No border */
-  padding: 10px 15px; /* Padding for button */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor */
-  margin-left: 5px; /* Space between input and button */
-  transition: background-color 0.3s; /* Smooth transition for hover */
-}
-
-.search-icon:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-}
-
 .navigation {
   display: flex; /* Flex container for navigation links */
 }
@@ -90,25 +75,28 @@ body {
   display: flex; /* Flex container for category buttons */
   justify-content: center; /* Center buttons */
   margin-top: 10px; /* Space above buttons */
+  flex-wrap: wrap; /* Allow buttons to wrap */
 }
 
 .category {
-  background-color: #007bff; /* Primary button color */
-  color: white; /* White text */
-  padding: 10px 20px; /* Padding for category buttons */
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
+  background-color: transparent; /* Make background transparent */
+  color: #007bff; /* Primary color for text */
+  border: 2px solid #007bff; /* Solid border with primary color */
+  padding: 5px 10px; /* Slightly reduced padding */
+  border-radius: 15px; /* More rounded corners */
   cursor: pointer; /* Pointer cursor */
-  margin: 0 10px; /* Space between buttons */
-  transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover */
+  margin: 5px; /* Space between buttons */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+  font-size: 0.9em; /* Smaller font size */
 }
 
 .category:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-  transform: scale(1.05); /* Slight scale effect on hover */
+  background-color: #007bff; /* Change background on hover */
+  color: white; /* Change text color on hover */
 }
 
-/* src/styles/HomePage.css (continued) */
+
+
 
 .product-list {
   display: flex; /* Use flexbox for a clean layout */
@@ -142,44 +130,30 @@ body {
 
 .product-card h3 {
   font-size: 1.1em; /* Standard font size for product name */
-  margin: 10px 0; /* Margin around product name */
-  color: #333; /* Darker text color */
-  flex-grow: 1; /* Allow name to grow and fill space */
+  margin: 10px 0; /* Margin above and below */
 }
 
 .product-card p {
-  font-size: 0.9em; /* Smaller font size for description */
-  color: #555; /* Darker gray for description */
-  margin: 5px 0; /* Space above and below description */
-}
-
-.product-card span {
-  font-size: 1.2em; /* Larger font for price */
-  font-weight: bold; /* Bold price for emphasis */
-  color: #007bff; /* Primary color for price */
+  font-size: 0.9em; /* Smaller font for descriptions */
 }
 
 .product-card button {
   background-color: #007bff; /* Primary button color */
   color: white; /* White text */
   border: none; /* No border */
-  padding: 10px 15px; /* Padding for add to cart button */
+  padding: 10px; /* Padding for buttons */
   border-radius: 5px; /* Rounded corners */
   cursor: pointer; /* Pointer cursor */
-  margin-top: 10px; /* Space above button */
-  transition: background-color 0.2s; /* Smooth transition for hover */
+  transition: background-color 0.3s; /* Smooth transition for hover */
 }
 
 .product-card button:hover {
   background-color: #0056b3; /* Darker blue on hover */
 }
 
-
-
-
 .pagination {
-  display: flex; /* Flex container for pagination */
-  justify-content: center; /* Center pagination controls */
+  display: flex; /* Flexbox for pagination */
+  justify-content: center; /* Center pagination items */
   margin: 20px 0; /* Margin around pagination */
 }
 
@@ -187,18 +161,81 @@ body {
   background-color: #007bff; /* Primary button color */
   color: white; /* White text */
   border: none; /* No border */
-  padding: 10px 15px; /* Padding for buttons */
+  padding: 10px 15px; /* Padding for pagination buttons */
   border-radius: 5px; /* Rounded corners */
   cursor: pointer; /* Pointer cursor */
   margin: 0 5px; /* Space between buttons */
   transition: background-color 0.3s; /* Smooth transition for hover */
 }
 
-.pagination button:hover {
+.pagination button:disabled {
+  background-color: #ccc; /* Gray background for disabled buttons */
+  cursor: not-allowed; /* Not allowed cursor */
+}
+
+.pagination button:hover:not(:disabled) {
   background-color: #0056b3; /* Darker blue on hover */
 }
 
-.pagination button:disabled {
-  background-color: #ccc; /* Gray background for disabled */
-  cursor: not-allowed; /* Not-allowed cursor for disabled */
+/* Add media queries for responsiveness */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column; /* Stack header items vertically */
+    align-items: flex-start; /* Align items to start */
+  }
+
+  .search-bar-container {
+    width: 100%; /* Full width for search bar container */
+    margin-top: 10px; /* Space above search bar */
+  }
+
+  .search-input {
+    width: 100%; /* Full width for input */
+    margin-right: 0; /* Remove right margin */
+  }
+
+  .navigation {
+    width: 100%; /* Full width for navigation */
+    justify-content: space-around; /* Space out navigation links */
+    margin-top: 10px; /* Space above navigation */
+  }
+
+  .nav-link {
+    margin-left: 0; /* Remove left margin */
+    margin-right: 20px; /* Keep space on right */
+  }
+
+  .category-section {
+    margin: 20px 0; /* Margin around category section */
+    text-align: center; /* Center text */
+  }
+
+  .categories {
+    flex-wrap: wrap; /* Allow buttons to wrap */
+    justify-content: center; /* Center buttons */
+  }
+
+  .category {
+    flex: 1 1 45%; /* Flex to allow wrapping, take up to 45% */
+    margin: 5px; /* Space between buttons */
+    padding: 10px; /* Padding for category buttons */
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.8em; /* Smaller title for mobile */
+  }
+
+  .product-list {
+    padding: 10px; /* Reduce padding for product list */
+  }
+
+  .product-card {
+    width: calc(100% - 20px); /* Full width for cards on mobile */
+  }
+
+  .pagination button {
+    padding: 8px 10px; /* Reduce padding for pagination buttons */
+  }
 }

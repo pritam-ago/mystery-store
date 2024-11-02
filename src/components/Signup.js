@@ -4,6 +4,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"; // Import Firestore methods
 import { db } from "../config"; // Your Firestore config
 import "./styles/Signup.css";
+import BackButton from "./BackButton";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -42,6 +43,7 @@ function Signup() {
 
   return (
     <div className="signup-container">
+      <BackButton/>
       <h2>Signup</h2>
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleSignup} className="signup-form">

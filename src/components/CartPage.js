@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { db } from "../config"; // Your Firebase config
 import { doc, getDoc } from "firebase/firestore";
 import CartItemCard from "./CartItemCard"; // Import CartItemCard
+import BackButton from "./BackButton";
 
 const CartPage = ({ userId }) => {
   const [cartItems, setCartItems] = useState([]);
@@ -44,6 +45,7 @@ const CartPage = ({ userId }) => {
 
   return (
     <div className="cart-page">
+      <BackButton/>
       <h2>Your Cart</h2>
       {cartItems.length > 0 ? (
         <div className="cart-items">

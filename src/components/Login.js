@@ -5,6 +5,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"; // Import Firebase auth
 import "./styles/Login.css";
+import BackButton from "./BackButton";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -27,6 +28,7 @@ function Login() {
 
   return (
     <div className="login-container">
+      <BackButton/>
       <h2>Login</h2>
       <form onSubmit={handleLogin} className="login-form">
         <label>Email</label>

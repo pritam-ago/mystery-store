@@ -4,6 +4,7 @@ import { db } from "../config"; // Adjust import as needed
 import { collection, query, where, getDocs,getDoc, updateDoc, doc, arrayUnion } from "firebase/firestore"; 
 import { AuthContext } from "../context/AuthContext"; // Import your Auth context
 import "./styles/ProductDetail.css"; // Import your styles
+import BackButton from "./BackButton";
 
 const ProductDetail = () => {
   const { id } = useParams(); // Get the product id from the URL
@@ -81,6 +82,7 @@ const ProductDetail = () => {
 
   return (
     <div className="product-detail">
+      <BackButton/>
       <div className="product-detail-container">
         <img src={product.image} alt={product.name} className="product-image" />
         <div className="product-info">
