@@ -5,6 +5,7 @@ import { updatePassword, signOut } from "firebase/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"; // Import eye icons
 import "./styles/ProfilePage.css";
+import BackButton from "./BackButton";
 
 const ProfilePage = ({ userId }) => {
   const [userDetails, setUserDetails] = useState(null);
@@ -72,6 +73,7 @@ const ProfilePage = ({ userId }) => {
 
   return (
     <div className="profile-page">
+      <BackButton/>
       <h2>Profile</h2>
       {userDetails ? (
         <div className="profile-info">
