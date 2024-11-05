@@ -1,15 +1,14 @@
-// src/components/CartPage.js
 import React, { useEffect, useState } from "react";
-import { db } from "../config"; // Your Firebase config
+import { db } from "../config";
 import { doc, getDoc } from "firebase/firestore";
-import CartItemCard from "./CartItemCard"; // Import CartItemCard
+import CartItemCard from "./CartItemCard"; 
 import BackButton from "./BackButton";
 
 const CartPage = ({ userId }) => {
   const [cartItems, setCartItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0); // State for total price
+  const [totalPrice, setTotalPrice] = useState(0); 
 
-  // Function to fetch updated cart data
+
   const refreshCart = async () => {
     const userDocRef = doc(db, "users", userId);
     const userDoc = await getDoc(userDocRef);
@@ -19,12 +18,12 @@ const CartPage = ({ userId }) => {
     }
   };
 
-  // Fetch cart items initially and every time userId changes
+
   useEffect(() => {
     refreshCart();
   }, [userId]);
 
-  // Calculate total price whenever cartItems change
+
   useEffect(() => {
     const calculateTotalPrice = async () => {
       let total = 0;
@@ -34,14 +33,14 @@ const CartPage = ({ userId }) => {
         const productSnap = await getDoc(productRef);
         if (productSnap.exists()) {
           const productData = productSnap.data();
-          total += productData.price * item.quantity; // Calculate total based on quantity
+          total += productData.price * item.quantity; 
         }
       }
       setTotalPrice(total);
     };
 
-    calculateTotalPrice(); // Calculate total price when cartItems change
-  }, [cartItems]); // Dependency on cartItems
+    calculateTotalPrice(); 
+  }, [cartItems]); 
 
   return (
     <div className="cart-page">

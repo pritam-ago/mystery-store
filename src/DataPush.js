@@ -1,7 +1,7 @@
-import { db } from "./config"; // Adjust your Firestore config import path as needed
+import { db } from "./config"; 
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore"; 
 
-// Sample products array
+
 const sampleProducts = [
   {
     id: 1,
@@ -85,18 +85,17 @@ const sampleProducts = [
   }
 ];
 
-// Function to add products to Firestore
+
 const addProductsToFirestore = async () => {
   const productsRef = collection(db, "products");
 
   for (const product of sampleProducts) {
     try {
-      // Check if the product already exists
       const q = query(productsRef, where("id", "==", product.id));
       const querySnapshot = await getDocs(q);
 
       if (querySnapshot.empty) {
-        // If the product does not exist, add it to Firestore
+       
         await addDoc(productsRef, product);
         console.log(`Product with id ${product.id} added successfully!`);
       } else {

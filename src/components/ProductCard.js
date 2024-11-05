@@ -1,4 +1,3 @@
-// src/components/ProductCard.js
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./styles/ProductCard.css";
@@ -7,12 +6,12 @@ import { db } from "../config";
 import { collection, getDoc, query, where, getDocs, updateDoc, doc, arrayUnion } from "firebase/firestore"; 
 
 const ProductCard = ({ product }) => {
-  const { user } = useContext(AuthContext); // Get the current user from context
+  const { user } = useContext(AuthContext); 
   const [itemId, setItemId] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const price = parseFloat(product.price) || 0;
 
-  // Fetch the product document ID only once
+
   useEffect(() => {
     const fetchProductId = async () => {
       const productsRef = collection(db, "products");
@@ -21,7 +20,7 @@ const ProductCard = ({ product }) => {
       try {
         const querySnapshot = await getDocs(q);
         if (!querySnapshot.empty) {
-          const docId = querySnapshot.docs[0].id; // Set the first document's ID if found
+          const docId = querySnapshot.docs[0].id; 
           setItemId(docId);
         }
       } catch (error) {
@@ -32,7 +31,7 @@ const ProductCard = ({ product }) => {
     fetchProductId();
   }, [product.id]);
 
-  // Function to add product to cart
+
   const addToCart = async () => {
     if (!user) {
       alert("Please log in to add items to your cart.");
@@ -47,14 +46,14 @@ const ProductCard = ({ product }) => {
     const userDocRef = doc(db, "users", user.uid);
 
     try {
-      // Check current cart items to see if the product exists
+      
       const userSnapshot = await getDoc(userDocRef);
       const cartItems = userSnapshot.data()?.cart || [];
 
       const existingItemIndex = cartItems.findIndex(item => item.id === itemId);
 
       if (existingItemIndex !== -1) {
-        // Update quantity if item exists
+        
         const updatedCart = cartItems.map((item, index) => 
           index === existingItemIndex 
             ? { ...item, quantity: item.quantity + quantity } 
@@ -64,7 +63,7 @@ const ProductCard = ({ product }) => {
         await updateDoc(userDocRef, { cart: updatedCart });
         alert(`Updated quantity of ${product.name} to ${updatedCart[existingItemIndex].quantity}!`);
       } else {
-        // Add new item if it doesn't exist in the cart
+        
         await updateDoc(userDocRef, {
           cart: arrayUnion({ id: itemId, quantity })
         });

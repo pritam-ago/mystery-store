@@ -1,4 +1,3 @@
-// src/components/CartItemCard.js
 import React, { useState, useEffect } from "react";
 import { doc, getDoc, updateDoc, arrayRemove } from "firebase/firestore";
 import { db } from "../config";
@@ -55,13 +54,13 @@ const CartItemCard = ({ userId, item, refreshCart }) => {
   // Remove item from cart and refresh list
   const removeFromCart = async () => {
     const userDocRef = doc(db, "users", userId);
-    const cartItem = { id: item.id, quantity }; // Ensure correct object structure
+    const cartItem = { id: item.id, quantity }; 
 
     await updateDoc(userDocRef, {
       cart: arrayRemove(cartItem)
     });
 
-    refreshCart(); // Refresh cart list in parent component
+    refreshCart(); 
   };
 
   if (!product) return null;

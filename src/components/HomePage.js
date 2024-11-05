@@ -1,12 +1,10 @@
-// src/components/HomePage.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../config";
-import { collection, getDocs } from "firebase/firestore"; // Import Firestore functions
+import { collection, getDocs } from "firebase/firestore";
 import "./styles/HomePage.css";
 import ProductCard from "./ProductCard";
 import logo from "../assets/Mystery.png";
-import addProductsToFirestore from '../DataPush';
 
 function HomePage({userId}) {
   const [products, setProducts] = useState([]);
@@ -39,7 +37,7 @@ function HomePage({userId}) {
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
-    setCurrentPage(1); // Reset to first page when a new category is selected
+    setCurrentPage(1); 
   };
 
   return (

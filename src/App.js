@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { auth } from "./config"; // Import your Firebase config
+import { auth } from "./config"; 
 import { onAuthStateChanged } from "firebase/auth";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from './context/AuthContext';
@@ -19,13 +19,13 @@ function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUserId(user.uid); // Get the current user's ID
+        setUserId(user.uid); 
       } else {
-        setUserId(null); // User is signed out
+        setUserId(null); 
       }
     });
 
-    return () => unsubscribe(); // Cleanup subscription on unmount
+    return () => unsubscribe(); 
   }, []);
 
   return (

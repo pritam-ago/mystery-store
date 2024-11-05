@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { db } from "../config"; // Adjust import as needed
+import { db } from "../config";
 import { collection, query, where, getDocs,getDoc, updateDoc, doc, arrayUnion } from "firebase/firestore"; 
-import { AuthContext } from "../context/AuthContext"; // Import your Auth context
-import "./styles/ProductDetail.css"; // Import your styles
+import { AuthContext } from "../context/AuthContext"; 
+import "./styles/ProductDetail.css";
 import BackButton from "./BackButton";
 
 const ProductDetail = () => {
-  const { id } = useParams(); // Get the product id from the URL
+  const { id } = useParams(); 
   const [product, setProduct] = useState(null);
-  const { user } = useContext(AuthContext); // Get the current user from context
-  const [quantity, setQuantity] = useState(1); // Quantity state for the product
+  const { user } = useContext(AuthContext); 
+  const [quantity, setQuantity] = useState(1); 
   
   useEffect(() => {
     const fetchProduct = async () => {
@@ -35,37 +35,37 @@ const ProductDetail = () => {
     fetchProduct();
   }, [id]);
 
-  // Function to add product to cart
+  
   const addToCart = async () => {
     if (!user) {
       alert("You need to be logged in to add items to the cart.");
       return;
     }
   
-    const userDocRef = doc(db, "users", user.uid); // Reference to the user's document
+    const userDocRef = doc(db, "users", user.uid); 
     try {
-      // Fetch the current cart items to check if the product already exists
+      
       const userSnapshot = await getDoc(userDocRef);
-      const cartItems = userSnapshot.data()?.cart || []; // Use optional chaining to avoid errors if cart is undefined
+      const cartItems = userSnapshot.data()?.cart || [];
   
       const existingProductIndex = cartItems.findIndex(item => item.id === product.id);
   
       if (existingProductIndex !== -1) {
-        // If product exists, update quantity
+        
         const updatedCart = cartItems.map((item, index) => 
           index === existingProductIndex 
-            ? { ...item, quantity: item.quantity + quantity } // Increase quantity
+            ? { ...item, quantity: item.quantity + quantity } 
             : item
         );
   
         await updateDoc(userDocRef, {
-          cart: updatedCart // Update the cart array
+          cart: updatedCart
         });
         alert(`Updated ${product.name} quantity to ${updatedCart[existingProductIndex].quantity}!`);
       } else {
-        // Add new product to the cart
+        
         await updateDoc(userDocRef, {
-          cart: arrayUnion({ id: product.id, quantity: quantity }) // Add product with quantity
+          cart: arrayUnion({ id: product.id, quantity: quantity }) 
         });
         alert("Product added to cart!");
       }

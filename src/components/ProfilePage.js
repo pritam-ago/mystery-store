@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, db } from "../config"; // Import Firebase auth and database
+import { auth, db } from "../config"; 
 import { updatePassword, signOut } from "firebase/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"; // Import eye icons
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import "./styles/ProfilePage.css";
 import BackButton from "./BackButton";
 
@@ -12,17 +12,17 @@ const ProfilePage = ({ userId }) => {
   const [editing, setEditing] = useState(false);
   const [updatedDetails, setUpdatedDetails] = useState({});
   const [newPassword, setNewPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  // Fetch user details
+
   useEffect(() => {
     const fetchUserDetails = async () => {
       const userDocRef = doc(db, "users", userId);
       const userSnap = await getDoc(userDocRef);
       if (userSnap.exists()) {
         setUserDetails(userSnap.data());
-        setUpdatedDetails(userSnap.data()); // Initialize with current data
+        setUpdatedDetails(userSnap.data());
       } else {
         console.error("User not found");
       }
@@ -31,7 +31,7 @@ const ProfilePage = ({ userId }) => {
     fetchUserDetails();
   }, [userId]);
 
-  // Edit profile function
+
   const handleEditProfile = async () => {
     const userDocRef = doc(db, "users", userId);
     try {
@@ -45,7 +45,7 @@ const ProfilePage = ({ userId }) => {
     }
   };
 
-  // Update password function
+
   const handleChangePassword = async () => {
     if (!newPassword) {
       return alert("Please enter a new password");
@@ -54,18 +54,18 @@ const ProfilePage = ({ userId }) => {
     try {
       await updatePassword(auth.currentUser, newPassword);
       alert("Password updated successfully!");
-      setNewPassword(""); // Clear the password input after successful update
+      setNewPassword(""); 
     } catch (error) {
       console.error("Error updating password:", error);
       alert("Failed to update password. Please try again.");
     }
   };
 
-  // Sign out function
+
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      navigate("/"); // Redirect to the welcome page
+      navigate("/");
     } catch (error) {
       console.error("Error signing out:", error);
     }

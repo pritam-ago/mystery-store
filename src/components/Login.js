@@ -1,9 +1,8 @@
-// src/components/Login.js
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"; // Import Firebase auth
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import "./styles/Login.css";
 import BackButton from "./BackButton";
 
@@ -19,7 +18,7 @@ function Login() {
     
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      history("/home"); // Redirect to Home page on successful login
+      history("/home"); 
     } catch (error) {
       console.error("Error during login:", error);
       alert("Login failed. Please check your credentials.");

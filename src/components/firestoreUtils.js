@@ -1,24 +1,23 @@
-// src/firestoreUtils.js
-import { doc, updateDoc, getDoc, arrayUnion, arrayRemove, increment } from "firebase/firestore"; // Import necessary Firestore functions
-import { db } from "../config"; // Your firebase config
+import { doc, updateDoc, getDoc, arrayUnion, arrayRemove, increment } from "firebase/firestore"; 
+import { db } from "../config"; 
 
-// Function to update the quantity of a specific item in the cart
+
 export const updateCartQuantity = async (userId, itemId, newQuantity) => {
   const userDocRef = doc(db, "users", userId);
   await updateDoc(userDocRef, {
-    cart: arrayUnion({ id: itemId, quantity: newQuantity }) // Ensure this stores the document reference ID
+    cart: arrayUnion({ id: itemId, quantity: newQuantity }) 
   });
 };
 
-// Function to remove an item from the cart
+
 export const removeFromCart = async (userId, itemId) => {
   const userDocRef = doc(db, "users", userId);
   const userDoc = await getDoc(userDocRef);
-  const cart = userDoc.data()?.cart || []; // Safely get cart or default to empty array
+  const cart = userDoc.data()?.cart || []; 
 
-  const updatedCart = cart.filter(item => item.id !== itemId); // Remove the item from the cart
+  const updatedCart = cart.filter(item => item.id !== itemId);
 
   await updateDoc(userDocRef, {
-    cart: updatedCart // Update Firestore with the new cart
+    cart: updatedCart 
   });
 };

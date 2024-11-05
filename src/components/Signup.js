@@ -1,8 +1,7 @@
-// src/components/Signup.js
-import React, { useState } from "react";
+import  React, { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"; // Import Firestore methods
-import { db } from "../config"; // Your Firestore config
+import { doc, setDoc } from "firebase/firestore"; 
+import { db } from "../config"; 
 import "./styles/Signup.css";
 import BackButton from "./BackButton";
 
@@ -20,11 +19,11 @@ function Signup() {
     const auth = getAuth();
 
     try {
-      // Create a new user in Firebase Auth
+
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Store user data in Firestore
+
       await setDoc(doc(db, "users", user.uid), {
         name,
         email,
@@ -33,8 +32,8 @@ function Signup() {
         address,
       });
 
-      // Redirect to Welcome page on successful signup
-      window.location.href = "/"; // or use your navigate function
+
+      window.location.href = "/"; 
     } catch (err) {
       setError(err.message);
       console.error("Error during signup:", err);
